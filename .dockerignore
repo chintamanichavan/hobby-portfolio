@@ -1,0 +1,8 @@
+.git
+node_modules
+dist
+blender
+backend
+*.tsbuildinfo
+.env
+.env.*

@@ -1,0 +1,8 @@
+services:
+  web:
+    build: .
+    image: hobby-portfolio:0.1.0
+    container_name: hobby-portfolio
+    restart: unless-stopped
+    ports:
+      - "5175:80"
