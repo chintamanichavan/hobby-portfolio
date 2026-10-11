@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&family=Tiro+Devanagari:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Lora:ital,wght@0,400;0,500;1,400&family=Kalam:wght@300;400;700&family=Tiro+Devanagari+Marathi:ital@0;1&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap');
+
+/*
+ * A field journal laid out in the open: a pale ground with a lot of air,
+ * things set down on it, quiet labels, and evening at the foot of each page.
+ */
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -7,36 +12,44 @@
 }
 
 :root {
-  --cream: #faf8f3;
-  --warm-white: #f5f2eb;
-  --sand: #e8e0d0;
-  --stone: #c4b9a8;
-  --bark: #8b7355;
-  --ink: #2c2416;
-  --ink-light: #5a4e3c;
-  --rust: #b85c38;
-  --sage: #7a8c6e;
-  --mist: #9db4c0;
+  --ground:   #f3ead9;
+  --dusk:     #211d24;
+  --card:     #fdfaf3;
+  --ink:      #2b2118;
+  --ink-soft: #7a6a58;
+  --line:     rgba(43, 33, 24, 0.2);
 
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Lora', Georgia, serif;
-  --font-ui: 'Inter', system-ui, sans-serif;
-  --font-devanagari: 'Tiro Devanagari', serif;
+  --rust:   #b4532a;
+  --ochre:  #c9962f;
+  --forest: #43593f;
+  --plum:   #6d3b47;
+  --sky:    #6f8ca0;
 
-  --max-width: 1100px;
-  --reading-width: 680px;
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Lora', Georgia, serif;
+  /* Kalam covers Latin and Devanagari, so hand-written notes work in all three languages. */
+  --hand:    'Kalam', 'Comic Sans MS', cursive;
+  --marathi: 'Tiro Devanagari Marathi', serif;
+  --hindi:   'Tiro Devanagari Hindi', serif;
+
+  /* A wobbly radius that makes a straight border look drawn by hand. */
+  --wobble: 255px 15px 225px 15px / 15px 225px 15px 255px;
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
-  background-color: var(--cream);
+  min-height: 100vh;
+  /* Leaves and objects may hang off the edge of the page; they should not make it scroll sideways. */
+  overflow-x: clip;
+  background: var(--ground);
   color: var(--ink);
-  font-family: var(--font-body);
+  font-family: var(--body);
   font-size: 1.0625rem;
-  line-height: 1.75;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -54,5 +67,41 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+  color: inherit;
   font: inherit;
+}
+
+/* The rendered objects carry a wide, soft shadow. Fade each image out toward
+   its edges so the shadow never ends in a visible line. */
+img[src^="/media/desk/"] {
+  mask-image: radial-gradient(ellipse closest-side, #000 64%, transparent 98%);
+  -webkit-mask-image: radial-gradient(ellipse closest-side, #000 64%, transparent 98%);
+}
+
+/* A Thing is sized from its true dimensions (--w, --h, in scene units) times a
+   scale (--s, pixels per unit). It is pulled in by most of its shadow margin
+   (--m) so layout follows the object, not the shadow. */
+img[data-thing] {
+  --k: 1;
+  width: calc(var(--w) * var(--s) * var(--k) * 1px);
+  height: calc(var(--h) * var(--s) * var(--k) * 1px);
+  max-width: none;
+  margin: calc(var(--m) * var(--s) * var(--k) * -1px);
+}
+
+@media (max-width: 640px) {
+  img[data-thing] { --k: 0.6; }
+}
+
+/* The journal is a rectangle that nearly fills its image, so an oval fade
+   would eat its corners. Fade its four edges instead. */
+img[src$="/journal.webp"] {
+  mask-image:
+    linear-gradient(90deg, transparent, #000 13%, #000 87%, transparent),
+    linear-gradient(transparent, #000 10%, #000 90%, transparent);
+  mask-composite: intersect;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent, #000 13%, #000 87%, transparent),
+    linear-gradient(transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-composite: source-in;
 }

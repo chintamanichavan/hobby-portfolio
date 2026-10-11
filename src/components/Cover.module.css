@@ -1,0 +1,147 @@
+/* The first page: the closed journal and a few things, on the same pale ground as every other page. */
+.cover {
+  /* One scene unit on screen. The layout is about 7 units wide and 4.4 tall,
+     and is scaled to fill the window whatever its shape. */
+  --u: max(14.31vw, 22.894vh);
+  --mx: 0;
+  --my: 0;
+
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  background: var(--ground);
+}
+
+/* A quiet note in the corner. */
+.hint {
+  position: absolute;
+  top: clamp(18px, 2.4vw, 34px);
+  left: clamp(20px, 5vw, 72px);
+  font: 500 0.7rem/1.6 var(--display);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  transition: opacity 0.35s;
+}
+
+/* ── Things ── */
+
+/* Each thing is placed by the centre of its image, in scene units from the
+   middle of the window. The render includes a wide soft shadow, so the box
+   itself takes no clicks. */
+.thing {
+  position: absolute;
+  left: calc(50% + (var(--x) - var(--w) / 2) * var(--u));
+  top: calc(50% - (var(--y) + var(--h) / 2) * var(--u));
+  width: calc(var(--w) * var(--u));
+  height: calc(var(--h) * var(--u));
+  pointer-events: none;
+  transform: translate(calc(var(--mx) * var(--depth) * -18px), calc(var(--my) * var(--depth) * -18px));
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.4s ease;
+}
+
+.thing img {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.35s;
+}
+
+/* The part you can pick up: the object, without its shadow's margin. */
+.pick {
+  position: absolute;
+  inset: 22%;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.journal .pick { inset: 15% 20% 22%; }
+
+.pick:focus-visible {
+  outline: 1.5px dashed var(--ink);
+  outline-offset: 2px;
+}
+
+/* Picked up: it lifts a little off the ground. */
+.thing:has(.pick:hover) img,
+.thing:has(.pick:focus-visible) img {
+  transform: scale(1.05) translateY(-5px);
+  filter: drop-shadow(0 18px 16px rgba(43, 33, 24, 0.28));
+}
+
+.journal:has(.pick:hover) img,
+.journal:has(.pick:focus-visible) img { transform: scale(1.02) translateY(-4px); }
+
+.label {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 2px);
+  transform: translateX(-50%) rotate(-3deg);
+  font: 400 clamp(0.9rem, 1.15vw, 1.2rem) var(--hand);
+  color: var(--ink);
+  white-space: nowrap;
+  opacity: 0.7;
+  transition: opacity 0.25s;
+}
+
+.pick:hover .label,
+.pick:focus-visible .label { opacity: 1; }
+
+/* ── Opening ── */
+
+/* The other things slip away, and the cover swings open on its spine as it
+   comes toward you and fades, leaving the page that was underneath. */
+.opening .thing,
+.opening .hint {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.opening .journal {
+  opacity: 1;
+  /* The spine is the book's left edge: 0.5 units of shadow margin into the image. */
+  transform-origin: calc(0.5 / var(--w) * 100%) 50%;
+  animation: swing 0.95s cubic-bezier(0.5, 0, 0.3, 1) forwards;
+}
+
+@keyframes swing {
+  to {
+    opacity: 0;
+    transform: perspective(calc(9 * var(--u))) rotateY(-78deg) scale(1.25);
+  }
+}
+
+/* Tall, narrow screens: no room to spread things out, so stack them and let the page scroll. */
+@media (max-aspect-ratio: 1 / 1) {
+  .cover {
+    --u: 30vw;
+    overflow-y: auto;
+  }
+
+  .layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    padding: 64px 0 40px;
+  }
+
+  .thing {
+    position: relative;
+    left: auto;
+    top: auto;
+    /* Pull each image in by most of its shadow margin so the things sit close. */
+    margin: calc(-0.36 * var(--u));
+    transform: none;
+  }
+
+  .journal { flex-basis: 100%; height: calc(var(--h) * var(--u)); margin: calc(-0.36 * var(--u)) auto; max-width: calc(var(--w) * var(--u)); }
+
+  /* Leaves are scenery; on a small screen they only get in the way. */
+  .thing:not(:has(.pick)) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thing, .thing img { transition: none; }
+}

@@ -34,7 +34,7 @@ export const guitarEntries: GuitarEntry[] = [
     milestone: 'Month 4',
     song: 'Blackbird — work in progress',
     note: 'This is why I started. Still a long way off but I can hear it now.',
-    thumbnail: 'https://images.unsplash.com/photo-1471478331149-fa2a0d18ff02?w=800',
+    thumbnail: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Hands_play_acoustic_guitar_in_a_cozy_indoor_setting_during_a_casual_music_session.jpg/960px-Hands_play_acoustic_guitar_in_a_cozy_indoor_setting_during_a_casual_music_session.jpg',
     youtubeId: null,
   },
 ];

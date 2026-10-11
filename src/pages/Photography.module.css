@@ -1,112 +1,134 @@
-.main {
-  padding: 8rem 2rem 5rem;
-  max-width: var(--max-width);
-  margin: 0 auto;
+.kicker { composes: kicker from "../styles/journal.module.css"; }
+.title  { composes: title from "../styles/journal.module.css"; }
+.lede   { composes: lede from "../styles/journal.module.css"; }
+
+/* ── Field notes ── */
+
+.notes,
+.prints { animation: ease-in 0.6s ease-out; }
+
+.albumNo { composes: tiny from "../styles/journal.module.css"; color: var(--rust); }
+
+.albumTitle {
+  margin-top: 6px;
+  font: italic 400 clamp(2.4rem, 4.6vw, 4rem) / 1 var(--display);
+  letter-spacing: -0.02em;
 }
 
-.header {
-  margin-bottom: 3.5rem;
+.albumNote {
+  margin-top: 6px;
+  font: 400 1.25rem/1.3 var(--hand);
+  color: var(--ink-soft);
 }
 
-.eyebrow {
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--stone);
-  margin-bottom: 0.5rem;
-}
-
-.title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 0.75rem;
-}
-
-.subtitle {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-style: italic;
-  color: var(--ink-light);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-}
-
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 375px) {
-  .main {
-    padding: 6rem 1rem 3rem;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.photoWrap {
+.map {
   position: relative;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  cursor: pointer;
-  background: var(--sand);
+  max-width: 440px;
+  margin-top: clamp(16px, 2vw, 28px);
 }
 
-.photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+.map svg:first-child { display: block; width: 100%; }
+
+.map figcaption {
+  font: 500 0.68rem/1.5 var(--display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
 }
 
-.photoWrap:hover .photo {
-  transform: scale(1.05);
-}
-
-.overlay {
+/* A leaf fallen across the map in the fall albums. */
+.leaf {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(44, 36, 22, 0.7) 0%, transparent 55%);
+  right: -6%;
+  bottom: -16%;
+  pointer-events: none;
+  transform: rotate(14deg);
+}
+
+/* Where each print was taken, as a pencilled list. */
+.places {
+  margin-top: clamp(16px, 2vw, 26px);
+  list-style: none;
+  font: 400 1.15rem/1.6 var(--hand);
+}
+
+.places li::before { content: "— "; color: var(--rust); }
+
+.turns {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: clamp(24px, 3vw, 40px);
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+}
+
+.turn { composes: turn from "../styles/journal.module.css"; }
+
+.jump {
+  max-width: 44%;
+  border: none;
+  border-bottom: 1px dashed var(--ink-soft);
+  background: none;
+  font: 400 1.05rem var(--hand);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+/* ── Prints page ── */
+
+.prints {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(20px, 2.6vw, 36px);
+}
+
+.print {
+  composes: print from "../styles/journal.module.css";
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 0.85rem;
-  opacity: 0;
-  transition: opacity 0.3s;
+  text-align: left;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.photoWrap:hover .overlay {
-  opacity: 1;
+.print img {
+  aspect-ratio: 5 / 4;
+  height: auto;
 }
 
-.location {
-  font-family: var(--font-ui);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 0.2rem;
+/* Laid down by hand: no two prints sit at the same angle. */
+.print:nth-child(4n + 1) { transform: rotate(-1.6deg); }
+.print:nth-child(4n + 2) { transform: rotate(1.1deg) translateY(12px); }
+.print:nth-child(4n + 3) { transform: rotate(0.7deg); }
+.print:nth-child(4n)     { transform: rotate(-0.9deg) translateY(8px); }
+
+.print:hover,
+.print:focus-visible {
+  z-index: 1;
+  transform: rotate(0) scale(1.03);
+  box-shadow: 0 2px 4px rgba(43, 33, 24, 0.2), 0 26px 40px -18px rgba(43, 33, 24, 0.55);
+}
+
+.where {
+  margin-top: 10px;
+  font: 400 1.08rem/1.2 var(--hand);
 }
 
 .caption {
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-style: italic;
-  color: #fff;
+  margin-top: 2px;
+  font: 300 0.98rem/1.3 var(--hand);
+  color: var(--ink-soft);
+}
+
+@keyframes ease-in {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notes, .prints { animation: none; }
+}
+
+@media (max-width: 520px) {
+  .prints { grid-template-columns: 1fr; }
 }

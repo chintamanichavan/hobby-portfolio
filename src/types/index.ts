@@ -7,6 +7,15 @@ export interface Photo {
   caption?: string;
 }
 
+/** A set of photos from one trip or place. */
+export interface Album {
+  title: string;
+  note: string;
+  /** Where the photos were taken, as [latitude, longitude]; drawn on the album's map. */
+  pins: [number, number][];
+  photos: Photo[];
+}
+
 export type PoemLanguage = 'english' | 'marathi' | 'hindi';
 
 export interface Poem {

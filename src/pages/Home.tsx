@@ -1,86 +1,70 @@
 import { Link } from 'react-router-dom';
+import Spread from '../components/Spread';
+import Thing from '../components/Thing';
+import UsMap from '../components/UsMap';
+import { cookingEntries } from '../data/cooking';
+import { guitarEntries } from '../data/guitar';
+import { albums, photos } from '../data/photos';
+import { poems } from '../data/poems';
+import { sections } from '../data/sections';
+import { travelEntries } from '../data/travel';
 import styles from './Home.module.css';
 
-const sections = [
-  {
-    to: '/photography',
-    label: 'Photography',
-    description: 'Moments caught between intention and accident.',
-    accent: '#c4b9a8',
-    live: true,
-  },
-  {
-    to: '/poetry',
-    label: 'Poetry',
-    description: 'Words that arrive uninvited and stay.',
-    accent: '#9db4c0',
-    live: true,
-  },
-  {
-    to: '/travel',
-    label: 'Travel',
-    description: 'A few places that changed the shape of ordinary days.',
-    accent: '#7a8c6e',
-    live: true,
-  },
-  {
-    to: '/guitar',
-    label: 'Guitar',
-    description: 'Learning to play. Slowly, badly, happily.',
-    accent: '#c4a882',
-    live: false,
-  },
-  {
-    to: '/cooking',
-    label: 'Cooking',
-    description: 'Home recipes, experiments, the occasional disaster.',
-    accent: '#b87f6a',
-    live: false,
-  },
-];
+/** What is inside each section, shown beside its name. */
+const INSIDE: Record<string, string> = {
+  '/photography': `${photos.length} prints from ${albums.length} places`,
+  '/poetry':      `${poems.length} poems in English, Marathi and Hindi`,
+  '/travel':      `${travelEntries.length} postcards`,
+  '/guitar':      `${guitarEntries.length} entries in the practice log`,
+  '/cooking':     `${cookingEntries.length} recipe cards`,
+};
+
+/** Three prints left lying on the first page. */
+const LOOSE_PRINTS = [albums[4]?.photos[1], albums[1]?.photos[1], albums[5]?.photos[0]].filter((p) => p !== undefined);
+
+const ALL_PINS = albums.flatMap((a) => a.pins);
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <header className={styles.header}>
-        <p className={styles.eyebrow}>A personal space</p>
-        <h1 className={styles.title}>Things I do<br />when I'm not working.</h1>
-        <p className={styles.subtitle}>
-          Photography, poetry, travel — and a few things still taking shape.
-        </p>
-      </header>
+  const first = (
+    <>
+      <p className={styles.kicker}>a field journal</p>
+      <h1 className={styles.title}>Things I do when I'm not working.</h1>
+      <p className={styles.owner}>kept by Chintamani</p>
 
-      <div className={styles.grid}>
-        {sections.map((s) =>
-          s.live ? (
-            <Link
-              key={s.label}
-              to={s.to!}
-              className={styles.card}
-              style={{ '--accent': s.accent } as React.CSSProperties}
-            >
-              <div className={styles.cardInner}>
-                <h2 className={styles.cardTitle}>{s.label}</h2>
-                <p className={styles.cardDesc}>{s.description}</p>
-                <span className={styles.cardArrow}>Explore →</span>
-              </div>
-            </Link>
-          ) : (
-            <Link
-              key={s.label}
-              to={s.to!}
-              className={`${styles.card} ${styles.cardSoon}`}
-              style={{ '--accent': s.accent } as React.CSSProperties}
-            >
-              <div className={styles.cardInner}>
-                <h2 className={styles.cardTitle}>{s.label}</h2>
-                <p className={styles.cardDesc}>{s.description}</p>
-                <span className={styles.comingSoon}>Coming soon</span>
-              </div>
-            </Link>
-          )
-        )}
+      <div className={styles.collage} aria-hidden="true">
+        {LOOSE_PRINTS.map((p) => (
+          <figure key={p.id} className={styles.print}>
+            <img src={p.src} alt="" />
+            <figcaption>{p.location}</figcaption>
+          </figure>
+        ))}
+        <Thing name="leaf-oak" scale={150} className={styles.leafA} />
+        <Thing name="leaf-aspen" scale={130} className={styles.leafB} />
       </div>
-    </main>
+    </>
   );
+
+  const contents = (
+    <>
+      <ol className={styles.contents}>
+        {sections.map((s, i) => (
+          <li key={s.to}>
+            <Link to={s.to} className={styles.row}>
+              <span className={styles.fig}>fig. {i + 1}</span>
+              <span className={styles.label}>{s.label}</span>
+              <span className={styles.inside}>{INSIDE[s.to]}</span>
+              <Thing name={s.thing} scale={74} className={styles.thing} />
+            </Link>
+          </li>
+        ))}
+      </ol>
+
+      <figure className={styles.map}>
+        <UsMap pins={ALL_PINS} />
+        <figcaption>where these pages have been</figcaption>
+      </figure>
+    </>
+  );
+
+  return <Spread left={first} right={contents} />;
 }

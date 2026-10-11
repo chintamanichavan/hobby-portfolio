@@ -1,184 +1,82 @@
-.main {
-  padding: 8rem 2rem 5rem;
-  max-width: var(--max-width);
-  margin: 0 auto;
-}
+/* Recipes on ruled index cards, a photo clipped to each. */
 
-.header {
-  margin-bottom: 3.5rem;
-}
-
-.eyebrow {
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--stone);
-  margin-bottom: 0.5rem;
-}
-
-.title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 0.75rem;
-}
-
-.subtitle {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-style: italic;
-  color: var(--ink-light);
-}
+.eyebrow  { composes: kicker from "../styles/journal.module.css"; }
+.title    { composes: title from "../styles/journal.module.css"; }
+.subtitle { composes: lede from "../styles/journal.module.css"; }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(26px, 3vw, 40px);
+  max-width: 520px;
 }
 
-@media (max-width: 700px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .main {
-    padding: 6rem 1.25rem 3rem;
-  }
-}
-
-@media (max-width: 375px) {
-  .main {
-    padding: 6rem 1rem 3rem;
-  }
-}
+/* The second column picks up where the first leaves off. */
+.onward { margin-left: auto; }
 
 .card {
-  background: var(--warm-white);
-  border: 1px solid var(--sand);
-  border-radius: 4px;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  box-shadow: 0 1px 2px rgba(43, 33, 24, 0.2), 0 18px 32px -20px rgba(43, 33, 24, 0.5);
+  transition: transform 0.3s;
 }
 
-.card:not(.cardSoon) {
-  cursor: pointer;
-}
+.card:nth-child(odd)  { transform: rotate(-0.7deg); }
+.card:nth-child(even) { transform: rotate(0.8deg); }
+.card:hover { transform: rotate(0) translateY(-3px); }
 
-.card:not(.cardSoon):hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(44, 36, 22, 0.08);
-}
-
-.cardSoon {
-  opacity: 0.75;
-}
+.card[role="button"] { cursor: pointer; }
 
 .thumbnail {
   position: relative;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  background: var(--sand);
+  margin: 14px 14px 0;
 }
 
 .thumbnail img {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
-  transition: transform 0.5s;
 }
 
-.card:not(.cardSoon):hover .thumbnail img {
-  transform: scale(1.04);
-}
-
-.playBtn {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  color: #fff;
-  background: rgba(44, 36, 22, 0.35);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.card:not(.cardSoon):hover .playBtn {
-  opacity: 1;
-}
-
+.playBtn,
 .soonBadge {
+  composes: stamp from "../styles/journal.module.css";
   position: absolute;
-  bottom: 0.75rem;
-  left: 0.75rem;
-  font-family: var(--font-ui);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #fff;
-  background: rgba(44, 36, 22, 0.55);
-  border: 1px dashed rgba(255,255,255,0.5);
-  border-radius: 20px;
-  padding: 0.2rem 0.65rem;
+  right: 10px;
+  bottom: 10px;
+  background: var(--card);
 }
 
+.playBtn { border-color: var(--forest); color: var(--forest); }
+
+/* Ruled like an index card: one red line, then blue ones every 30px. */
 .cardBody {
-  padding: 1.25rem 1.5rem 1.5rem;
+  flex: 1;
+  margin-top: 14px;
+  padding: 0 20px 22px;
+  border-top: 1.5px solid color-mix(in srgb, var(--rust) 60%, transparent);
+  background: repeating-linear-gradient(transparent 0 29px, color-mix(in srgb, var(--sky) 38%, transparent) 29px 30px);
+  line-height: 30px;
 }
 
 .meta {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
 }
 
-.duration {
-  font-family: var(--font-ui);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  color: var(--bark);
-  background: var(--sand);
-  padding: 0.15rem 0.5rem;
-  border-radius: 3px;
-}
+.duration { font: 700 1.1rem/30px var(--hand); color: var(--rust); }
 
-.tags {
-  display: flex;
-  gap: 0.35rem;
-  flex-wrap: wrap;
-}
+.tags { display: flex; flex-wrap: wrap; gap: 0 12px; }
 
 .tag {
-  font-family: var(--font-ui);
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
-  color: var(--stone);
-  text-transform: lowercase;
+  composes: tag from "../styles/journal.module.css";
+  line-height: 30px;
 }
 
-.tag::before {
-  content: '#';
-}
+.cardTitle { font: 400 1.65rem/30px var(--display); }
 
-.cardTitle {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 0.5rem;
-}
-
-.cardDesc {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  font-style: italic;
-  color: var(--ink-light);
-  line-height: 1.7;
-}
+.cardDesc { font: 400 1.18rem/30px var(--hand); color: var(--ink-soft); }

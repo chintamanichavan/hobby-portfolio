@@ -1,197 +1,121 @@
-.main {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  padding-top: 5rem;
-}
+/* A quiet index on the left; the poem has the open space to itself. */
 
-@media (max-width: 768px) {
-  .main {
-    grid-template-columns: 1fr;
-  }
-}
+.sidebar,
+.poem { --deva: var(--marathi); }
 
-.sidebar {
-  padding: 4rem 2rem 4rem 2.5rem;
-  border-right: 1px solid var(--sand);
-  position: sticky;
-  top: 5rem;
-  height: calc(100vh - 5rem);
-  overflow-y: auto;
-}
+.sidebar[data-lang="hindi"],
+.poem[data-lang="hindi"] { --deva: var(--hindi); }
 
-.eyebrow {
-  font-family: var(--font-ui);
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--stone);
-  margin-bottom: 0.4rem;
-}
+.eyebrow { composes: kicker from "../styles/journal.module.css"; }
+.title   { composes: title from "../styles/journal.module.css"; }
 
-.title {
-  font-family: var(--font-display);
-  font-size: 1.75rem;
-  font-weight: 400;
-  color: var(--ink);
-  margin-bottom: 2.5rem;
-}
+/* ── Index ── */
 
 .langTabs {
   display: flex;
-  gap: 0.25rem;
-  margin-bottom: 1.5rem;
   flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
 }
 
+/* Small paper labels; Kalam draws the Devanagari ones too. */
 .langTab {
-  font-family: var(--font-ui);
-  font-size: 0.78rem;
-  padding: 0.3rem 0.75rem;
-  border: 1px solid var(--sand);
-  border-radius: 20px;
-  color: var(--ink-light);
-  background: transparent;
-  transition: all 0.2s;
-  cursor: pointer;
+  padding: 3px 12px 1px;
+  border: 1.5px solid var(--ink);
+  border-radius: var(--wobble);
+  font: 400 1.1rem/1.5 var(--hand);
+  transition: background 0.2s, color 0.2s;
 }
 
-.langTab:hover {
-  border-color: var(--stone);
-  color: var(--ink);
-}
+.langTab:hover { background: color-mix(in srgb, var(--plum) 16%, transparent); }
 
-.langTabActive {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--cream);
+.langTabActive,
+.langTabActive:hover {
+  background: var(--plum);
+  border-color: var(--plum);
+  color: var(--card);
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  max-width: 380px;
 }
 
 .item {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 0.75rem 1rem;
-  border-radius: 3px;
+  padding: 12px 0 10px;
+  border-bottom: 1px solid var(--line);
   text-align: left;
-  transition: background 0.2s;
-  color: var(--ink-light);
+  transition: padding 0.25s, color 0.25s;
 }
 
-.item:hover {
-  background: var(--warm-white);
-}
+.item:hover { padding-left: 8px; color: var(--plum); }
 
-.itemActive {
-  background: var(--warm-white);
-  color: var(--ink);
-}
+.itemActive { padding-left: 8px; color: var(--plum); }
 
-.itemTitle {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  font-weight: 500;
-}
+.itemTitle { font: italic 400 1.5rem/1.25 var(--display); }
 
-.itemDate {
-  font-family: var(--font-ui);
-  font-size: 0.7rem;
-  color: var(--stone);
-  margin-top: 0.15rem;
-}
+.itemDate { font: 400 0.98rem/1.3 var(--hand); color: var(--ink-soft); }
+
+.devanagari { font-family: var(--deva); font-style: normal; }
+
+/* ── The poem, on its own sheet ── */
 
 .poem {
-  padding: 5rem 5rem 5rem;
-  max-width: 680px;
+  position: relative;
+  padding: clamp(28px, 3.4vw, 56px) clamp(22px, 3vw, 52px) clamp(56px, 6vw, 76px);
+  background: var(--card);
+  box-shadow: 0 1px 2px rgba(43, 33, 24, 0.1), 0 30px 60px -30px rgba(43, 33, 24, 0.35);
+  animation: ease-in 0.6s ease-out;
 }
 
-@media (max-width: 1024px) {
-  .poem {
-    padding: 4rem 2.5rem;
-  }
-}
+.poemTitle { font: italic 400 clamp(1.9rem, 3.4vw, 2.8rem) / 1.1 var(--display); }
 
-@media (max-width: 640px) {
-  .poem {
-    padding: 2.5rem 1.5rem;
-  }
-
-  .sidebar {
-    padding: 2.5rem 1.25rem;
-    border-right: none;
-    border-bottom: 1px solid var(--sand);
-    position: static;
-    height: auto;
-    overflow-y: visible;
-  }
-}
-
-@media (max-width: 375px) {
-  .poem {
-    padding: 2rem 1.25rem;
-  }
-}
-
-.poemTitle {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  font-weight: 400;
-  font-style: italic;
-  color: var(--ink);
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
-}
+.poemTitle.devanagari { font: 400 clamp(1.9rem, 3.4vw, 2.8rem) / 1.35 var(--deva); }
 
 .poemDate {
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  color: var(--stone);
-  text-transform: uppercase;
-  margin-bottom: 3rem;
+  margin-top: 6px;
+  font: 400 1.1rem var(--hand);
+  color: var(--plum);
 }
 
-.poemBody {
-  display: flex;
-  flex-direction: column;
-  gap: 1.75rem;
-}
+.poemBody { margin-top: clamp(24px, 3vw, 40px); }
 
-.stanza {
-  font-family: var(--font-body);
-  font-size: 1.15rem;
-  line-height: 1.9;
-  color: var(--ink);
-}
+.stanza { font: 400 clamp(1.15rem, 1.7vw, 1.36rem) / 1.75 var(--display); }
 
-.note {
-  margin-top: 3.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--sand);
-  font-family: var(--font-ui);
-  font-size: 0.8rem;
-  color: var(--stone);
-  font-style: italic;
-}
-
-/* Devanagari overrides */
-
-.devanagari {
-  font-family: var(--font-devanagari);
-  font-style: normal;
-  letter-spacing: 0;
-}
+.stanza + .stanza { margin-top: 1.5em; }
 
 .devanagariStanza {
-  font-family: var(--font-devanagari);
-  font-size: 1.2rem;
-  line-height: 2.1;
-  font-style: normal;
-  letter-spacing: 0;
+  font-family: var(--deva);
+  font-size: clamp(1.25rem, 1.9vw, 1.5rem);
+  line-height: 2;
+}
+
+/* A note pencilled under the poem. */
+.note {
+  width: fit-content;
+  margin-top: clamp(28px, 4vw, 48px);
+  font: 400 1.2rem/1.4 var(--hand);
+  color: var(--rust);
+  transform: rotate(-1.5deg);
+}
+
+.note::before { content: "— "; }
+
+.folio {
+  position: absolute;
+  right: clamp(22px, 3vw, 48px);
+  bottom: 22px;
+  font: 400 1rem var(--hand);
+  color: var(--ink-soft);
+}
+
+@keyframes ease-in {
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poem { animation: none; }
 }

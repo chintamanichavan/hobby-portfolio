@@ -1,0 +1,60 @@
+/* Open ground: nothing is boxed in, things are simply laid down with air around them. */
+
+.spread {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 80px) clamp(20px, 5vw, 72px) clamp(40px, 6vw, 90px);
+  animation: arrive 0.7s ease-out;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: clamp(20px, 4vw, 60px);
+  min-height: clamp(220px, 30vw, 380px);
+  margin-bottom: clamp(36px, 6vw, 96px);
+}
+
+/* The section's object, floating beside its title like a labelled specimen. */
+.specimen {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: float 9s ease-in-out infinite;
+}
+
+.specimen figcaption {
+  margin-top: 6px;
+  font: 500 0.66rem/1.4 var(--display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  animation: float 9s ease-in-out infinite reverse;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(32px, 7vw, 120px);
+  align-items: start;
+}
+
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(14px); }
+}
+
+@keyframes float {
+  50% { transform: translateY(-7px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spread, .specimen, .specimen figcaption { animation: none; }
+}
+
+@media (max-width: 860px) {
+  .head { flex-direction: column-reverse; align-items: flex-start; min-height: 0; }
+  .specimen { align-self: center; }
+  .columns { grid-template-columns: 1fr; }
+}

@@ -1,140 +1,111 @@
-.main {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 8rem 2rem 4rem;
-  gap: 5rem;
-}
+/* ── First column: the line, and a few loose prints ── */
 
-.header {
-  text-align: center;
-  max-width: 600px;
-}
-
-.eyebrow {
-  font-family: var(--font-ui);
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--stone);
-  margin-bottom: 1.5rem;
-}
+.kicker { composes: kicker from "../styles/journal.module.css"; }
 
 .title {
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 3.5rem);
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--ink);
-  margin-bottom: 1.5rem;
+  composes: title from "../styles/journal.module.css";
+  margin-top: 14px;
+  font-size: clamp(3rem, 6.4vw, 6rem);
 }
 
-.subtitle {
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-style: italic;
-  color: var(--ink-light);
-  line-height: 1.8;
+.owner {
+  composes: tiny from "../styles/journal.module.css";
+  margin-top: 26px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  width: 100%;
-  max-width: var(--max-width);
-}
-
-@media (max-width: 900px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-    max-width: 440px;
-  }
-}
-
-@media (max-width: 375px) {
-  .main {
-    padding: 6rem 1.25rem 3rem;
-    gap: 3rem;
-  }
-}
-
-.card {
-  display: block;
-  background: var(--warm-white);
-  border: 1px solid var(--sand);
-  border-radius: 4px;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
+/* Three overlapping prints with two leaves fallen across them. */
+.collage {
   position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin-top: clamp(40px, 6vw, 84px);
+  aspect-ratio: 1 / 0.82;
 }
 
-.card::before {
-  content: '';
+.print { composes: print taped from "../styles/journal.module.css"; }
+
+/* Two classes, so this wins over the shared print's own positioning. */
+.collage .print {
+  position: absolute;
+  width: 56%;
+  padding-bottom: 0;
+}
+
+.print img { aspect-ratio: 4 / 3; height: auto; }
+
+.print figcaption {
+  padding: 6px 2px 8px;
+  font: 400 1rem/1.2 var(--hand);
+  color: var(--ink-soft);
+}
+
+.collage .print:nth-child(1) { top: 0;    left: 0;   transform: rotate(-5deg); }
+.collage .print:nth-child(2) { top: 20%;  right: 0;  transform: rotate(4deg); }
+.collage .print:nth-child(3) { bottom: 0; left: 14%; transform: rotate(-1.5deg); }
+
+.leafA,
+.leafB { position: absolute; pointer-events: none; }
+
+.leafA { right: -4%; bottom: -10%; transform: rotate(18deg); }
+.leafB { left: -12%; bottom: 12%; transform: rotate(-30deg); }
+
+/* ── Second column: the sections, each beside its object ── */
+
+.contents { list-style: none; }
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  column-gap: 16px;
+  padding: clamp(14px, 2vw, 26px) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.fig {
+  composes: tiny from "../styles/journal.module.css";
+  grid-column: 1;
+}
+
+.label {
+  grid-column: 1;
+  font: italic 400 clamp(2.2rem, 4.4vw, 4rem) / 1 var(--display);
+  letter-spacing: -0.02em;
+  transition: color 0.25s, transform 0.35s;
+}
+
+.inside {
+  grid-column: 1;
+  margin-top: 6px;
+  font: 400 1.05rem/1.3 var(--hand);
+  color: var(--ink-soft);
+}
+
+/* The object sits at the end of its row and lifts when you point at the row. */
+.thing {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.row:hover .label { color: var(--rust); transform: translateX(8px); }
+.row:hover .thing { transform: translateY(-8px) rotate(-4deg); }
+
+.map { margin-top: clamp(40px, 6vw, 80px); }
+
+.map svg {
   display: block;
-  height: 4px;
-  background: var(--accent);
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
 }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(44, 36, 22, 0.08);
-}
-
-.cardInner {
-  padding: 2rem;
-}
-
-.cardTitle {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--ink);
-  margin-bottom: 0.75rem;
-}
-
-.cardDesc {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  font-style: italic;
-  color: var(--ink-light);
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
-}
-
-.cardArrow {
-  font-family: var(--font-ui);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  color: var(--bark);
-}
-
-.cardSoon {
-  opacity: 0.6;
-  cursor: default;
-}
-
-.cardSoon:hover {
-  transform: none;
-  box-shadow: none;
-}
-
-.comingSoon {
-  font-family: var(--font-ui);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
+.map figcaption {
+  margin-top: 10px;
+  font: 500 0.68rem/1.5 var(--display);
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--stone);
-  border: 1px dashed var(--stone);
-  border-radius: 20px;
-  padding: 0.2rem 0.65rem;
-  display: inline-block;
+  color: var(--ink-soft);
+  text-align: center;
 }
