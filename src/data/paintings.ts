@@ -1,0 +1,86 @@
+import type { Painting } from '../types';
+
+// Every picture here is a stand-in (public-domain paintings on Wikimedia Commons) until my own paintings replace it.
+const COMMONS = 'https://thumb.wikimedia.org/wikipedia/commons/thumb';
+
+/** Paintings in the order they hang, newest first. */
+export const paintings: Painting[] = [
+  {
+    id: '1',
+    title: 'Pass in the morning',
+    src: `${COMMONS}/c/cb/John_Singer_Sargent%2C_Simplon_Pass%2C_1911%2C_NGA_166471.jpg/1280px-John_Singer_Sargent%2C_Simplon_Pass%2C_1911%2C_NGA_166471.jpg`,
+    alt: 'A mountain pass in watercolour, rock in shadow and snow in sun',
+    medium: 'Watercolour on paper',
+    size: [40, 31],
+    year: 2026,
+    note: 'Left the white of the paper for the snow.',
+  },
+  {
+    id: '2',
+    title: 'Red mountain over the lake',
+    src: `${COMMONS}/f/fc/J._M._W._Turner_-_The_Red_Rigi_-_Google_Art_Project.jpg/1280px-J._M._W._Turner_-_The_Red_Rigi_-_Google_Art_Project.jpg`,
+    alt: 'A mountain glowing red above a still lake at dusk',
+    medium: 'Watercolour on paper',
+    size: [45, 30],
+    year: 2026,
+    note: 'Wet into wet, then I stopped touching it.',
+  },
+  {
+    id: '3',
+    title: 'Mountain behind the house',
+    src: `${COMMONS}/2/26/Paul_Cezanne_-_Mont_Sainte-Victoire_and_Ch%C3%A2teau_Noir_-_Google_Art_Project.jpg/1280px-Paul_Cezanne_-_Mont_Sainte-Victoire_and_Ch%C3%A2teau_Noir_-_Google_Art_Project.jpg`,
+    alt: 'A mountain in blocks of blue and green, a house half hidden in trees',
+    medium: 'Oil on canvas',
+    size: [61, 49],
+    year: 2025,
+    note: 'Painted in patches, not lines.',
+  },
+  {
+    id: '4',
+    title: 'Falls in the woods',
+    src: `${COMMONS}/6/68/Winslow_Homer_-_Waterfall_in_the_Adirondacks_%281889%29.jpg/1280px-Winslow_Homer_-_Waterfall_in_the_Adirondacks_%281889%29.jpg`,
+    alt: 'A waterfall pouring through dark woods',
+    medium: 'Watercolour on paper',
+    size: [50, 35],
+    year: 2025,
+    note: 'The water is the paper I did not paint.',
+  },
+  {
+    id: '5',
+    title: 'Canal, afternoon',
+    src: `${COMMONS}/7/77/Venice_MET_DT2889.jpg/1280px-Venice_MET_DT2889.jpg`,
+    alt: 'A canal between old houses in loose watercolour',
+    medium: 'Watercolour on paper',
+    size: [35, 25],
+    year: 2025,
+  },
+  {
+    id: '6',
+    title: 'Sponge boats',
+    src: `${COMMONS}/8/8e/Winslow_Homer_-_Sponge_Fishermen%2C_Bahamas_%281885%29.jpg/1280px-Winslow_Homer_-_Sponge_Fishermen%2C_Bahamas_%281885%29.jpg`,
+    alt: 'Two fishermen in small boats on bright blue water',
+    medium: 'Watercolour on paper',
+    size: [36, 19],
+    year: 2024,
+    note: 'Too much blue, and I like it.',
+  },
+  {
+    id: '7',
+    title: 'Palms after rain',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/0/06/Winslow_Homer_-_Palm_Trees%2C_Bahamas_%281890s%29.jpg',
+    alt: 'Palm trees bending under a grey sky',
+    medium: 'Watercolour on paper',
+    size: [24, 33],
+    year: 2024,
+  },
+  {
+    id: '8',
+    title: 'The musicians',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/f/f6/Raja_Ravi_Varma%2C_Galaxy_of_Musicians.jpg',
+    alt: 'Eleven women in saris, each holding an instrument',
+    medium: 'Oil on canvas',
+    size: [76, 60],
+    year: 2024,
+    note: 'Eleven faces. Took a whole winter.',
+  },
+];

@@ -3,9 +3,11 @@ import { BrowserRouter, Link, Routes, Route, useLocation, useNavigate } from 're
 import Cover from './components/Cover';
 import Nav from './components/Nav';
 import Thing from './components/Thing';
+import { OWNER } from './data/owner';
 import { sections } from './data/sections';
 import Home from './pages/Home';
 import Photography from './pages/Photography';
+import Painting from './pages/Painting';
 import Poetry from './pages/Poetry';
 import Travel from './pages/Travel';
 import Cooking from './pages/Cooking';
@@ -32,6 +34,7 @@ function Journal() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/photography" element={<Photography />} />
+            <Route path="/painting" element={<Painting />} />
             <Route path="/poetry" element={<Poetry />} />
             <Route path="/travel" element={<Travel />} />
             <Route path="/cooking" element={<Cooking />} />
@@ -46,7 +49,7 @@ function Journal() {
                 <span className={styles.nextTitle}>{next.label}</span>
                 <Thing name={next.thing} scale={150} className={styles.nextThing} />
               </Link>
-              <p className={styles.colophon}>Chintamani · things I do when I'm not working</p>
+              <p className={styles.colophon}>{OWNER} · things I do when I'm not working</p>
             </footer>
           )}
         </>

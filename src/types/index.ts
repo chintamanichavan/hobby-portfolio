@@ -57,3 +57,15 @@ export interface GuitarEntry {
   youtubeId: string | null;
   month: string;
 }
+
+export interface Painting {
+  id: string;
+  title: string;
+  src: string;
+  alt: string;
+  medium: string;
+  /** Width and height of the painting itself, in centimetres. */
+  size: [number, number];
+  year: number;
+  note?: string;
+}

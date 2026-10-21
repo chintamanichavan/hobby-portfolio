@@ -389,6 +389,42 @@ def picks():
     pick(mat("rust", "b4532a", rough=0.25, coat=0.8), (0.02, -0.27, 0), 165)
 
 
+def palette():
+    """A wooden palette with a thumb hole, paint squeezed round the edge, a brush across it. Painting."""
+    top = 0.03
+    pts = []
+    for i in range(96):
+        a = i * math.tau / 96
+        # An oval with a notch for the fingers on the left.
+        r = 1 - 0.22 * math.exp(-((a - math.pi) / 0.22) ** 2)
+        pts.append((0.62 * r * math.cos(a), 0.45 * r * math.sin(a)))
+    board = outline_mesh(pts, top, mottled("wood", "b4855a", "c79a6a", scale=7, rough=0.5, coat=0.3), rings=4)
+    board.location.z = top
+    hole = cyl(0.075, 0.2, (-0.36, -0.17, top), mat("cutter", "000000"))
+    hole.hide_render = True
+    cut = board.modifiers.new("hole", "BOOLEAN")
+    cut.operation, cut.object = "DIFFERENCE", hole
+
+    # Paint, from tube-sized blobs round the rim to one mixed smear in the middle.
+    for colour, x, y, s in (("f4efe4", 0.02, 0.33, 1.1), ("e5b62c", 0.27, 0.29, 1.0), ("c43a26", 0.45, 0.15, 0.9),
+                            ("8a1f3d", 0.52, -0.07, 0.85), ("2a4a9a", 0.40, -0.26, 1.0), ("2f6b45", 0.17, -0.35, 0.9),
+                            ("7a4320", -0.08, -0.36, 0.85), ("1d1f22", -0.24, 0.27, 0.8)):
+        ball((0.065 * s, 0.055 * s, 0.03 * s), (x, y, top + 0.012), mat("paint", colour, rough=0.15, coat=0.6))
+    smear = ball((0.16, 0.07, 0.008), (0.06, 0.02, top + 0.004), mat("mix", "6f8a8c", rough=0.2, coat=0.5))
+    turn([smear], 25, about=(0.06, 0.02))
+
+    # The brush lies across the palette: lacquered handle, steel ferrule, bristles dipped in blue.
+    z = top + 0.032
+    brush = [
+        cyl(0.016, 0.9, (-0.26, 0, z), mat("handle", "1f3a2c", rough=0.15, coat=1.0), axis="X", top=0.026),
+        cyl(0.028, 0.13, (0.25, 0, z), mat("ferrule", "c9c6bd", rough=0.25, metal=1.0), axis="X"),
+        cyl(0.026, 0.1, (0.36, 0, z), mat("bristle", "d8c39a", rough=0.8), axis="X", top=0.022),
+        cyl(0.022, 0.07, (0.445, 0, z), mat("paint", "2a4a9a", rough=0.15, coat=0.6), axis="X", top=0.004),
+    ]
+    turn(brush, -28, about=(0.1, 0))
+    turn([board, hole], 8)
+
+
 def leaf(path, dark, light, degrees):
     """A fallen leaf, slightly cupped."""
     pts = svg_outline(path)
@@ -412,6 +448,7 @@ OBJECTS = {
     "pen": pen,
     "chai": chai,
     "picks": picks,
+    "palette": palette,
     "leaf-oak": lambda: leaf(OAK, "8a3413", "c96a2b", -32),
     "leaf-aspen": lambda: leaf(ASPEN, "a8761c", "dba93a", 40),
 }

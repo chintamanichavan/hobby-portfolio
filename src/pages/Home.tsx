@@ -5,6 +5,8 @@ import UsMap from '../components/UsMap';
 import { cookingEntries } from '../data/cooking';
 import { guitarEntries } from '../data/guitar';
 import { albums, photos } from '../data/photos';
+import { OWNER } from '../data/owner';
+import { paintings } from '../data/paintings';
 import { poems } from '../data/poems';
 import { sections } from '../data/sections';
 import { travelEntries } from '../data/travel';
@@ -13,6 +15,7 @@ import styles from './Home.module.css';
 /** What is inside each section, shown beside its name. */
 const INSIDE: Record<string, string> = {
   '/photography': `${photos.length} prints from ${albums.length} places`,
+  '/painting':    `${paintings.length} paintings on the wall`,
   '/poetry':      `${poems.length} poems in English, Marathi and Hindi`,
   '/travel':      `${travelEntries.length} postcards`,
   '/guitar':      `${guitarEntries.length} entries in the practice log`,
@@ -29,7 +32,7 @@ export default function Home() {
     <>
       <p className={styles.kicker}>a field journal</p>
       <h1 className={styles.title}>Things I do when I'm not working.</h1>
-      <p className={styles.owner}>kept by Chintamani</p>
+      <p className={styles.owner}>kept by {OWNER}</p>
 
       <div className={styles.collage} aria-hidden="true">
         {LOOSE_PRINTS.map((p) => (

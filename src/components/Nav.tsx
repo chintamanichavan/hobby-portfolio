@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
+import { OWNER } from '../data/owner';
 import { sections } from '../data/sections';
 import styles from '../App.module.css';
 
@@ -6,7 +7,7 @@ import styles from '../App.module.css';
 export default function Nav() {
   return (
     <header className={styles.top}>
-      <Link to="/" className={styles.home}>Chintamani<br />a field journal</Link>
+      <Link to="/" className={styles.home}>{OWNER}<br />a field journal</Link>
       <nav className={styles.index} aria-label="Sections">
         {sections.map((s, i) => (
           <NavLink key={s.to} to={s.to} className={({ isActive }) => (isActive ? styles.here : undefined)}>
