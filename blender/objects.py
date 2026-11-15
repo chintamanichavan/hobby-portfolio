@@ -322,7 +322,7 @@ def compass():
 
 
 def pen():
-    """A fountain pen, its cap beside it, and an open bottle of ink. Poetry."""
+    """A fountain pen, its cap beside it, and an open bottle of ink. Writing."""
     lacquer = mat("lacquer", "4a2330", rough=0.12, coat=1.0)
     gold = mat("gold", "d2a04a", rough=0.25, metal=1.0)
     black = mat("black", "101010", rough=0.3)

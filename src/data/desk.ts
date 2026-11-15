@@ -19,7 +19,7 @@ export interface DeskObject {
 export const deskObjects: DeskObject[] = [
   { name: 'camera',     to: '/photography', label: 'photography', at: [-2.25, 0.85],  size: [2.465, 2.012], depth: 1.0 },
   { name: 'palette',    to: '/painting',    label: 'painting',    at: [-0.75, 1.1],   size: [2.307, 2.057], depth: 0.6 },
-  { name: 'pen',        to: '/poetry',      label: 'poetry',      at: [-0.95, -0.95], size: [2.3, 2.323],   depth: 0.5 },
+  { name: 'pen',        to: '/writing',     label: 'writing',     at: [-0.95, -0.95], size: [2.3, 2.323],   depth: 0.5 },
   { name: 'compass',    to: '/travel',      label: 'travel',      at: [2.5, 1.0],     size: [1.614, 1.719], depth: 0.7 },
   { name: 'picks',      to: '/guitar',      label: 'guitar',      at: [2.55, -1.0],   size: [1.865, 1.862], depth: 0.4 },
   { name: 'chai',       to: '/cooking',     label: 'cooking',     at: [-2.5, -0.95],  size: [2.38, 2.38],   depth: 0.9 },

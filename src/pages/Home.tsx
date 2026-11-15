@@ -7,20 +7,32 @@ import { guitarEntries } from '../data/guitar';
 import { albums, photos } from '../data/photos';
 import { OWNER } from '../data/owner';
 import { paintings } from '../data/paintings';
-import { poems } from '../data/poems';
 import { sections } from '../data/sections';
 import { travelEntries } from '../data/travel';
+import { pieces } from '../data/writing';
 import styles from './Home.module.css';
 
 /** What is inside each section, shown beside its name. */
 const INSIDE: Record<string, string> = {
   '/photography': `${photos.length} prints from ${albums.length} places`,
   '/painting':    `${paintings.length} paintings on the wall`,
-  '/poetry':      `${poems.length} poems in English, Marathi and Hindi`,
+  '/writing':     writingCount(),
   '/travel':      `${travelEntries.length} postcards`,
   '/guitar':      `${guitarEntries.length} entries in the practice log`,
   '/cooking':     `${cookingEntries.length} recipe cards`,
 };
+
+function plural(n: number, word: string) {
+  return `${n} ${word}${n === 1 ? '' : 's'}`;
+}
+
+/** "10 poems", or "10 poems and 2 essays" once there are essays. */
+function writingCount() {
+  const poems = pieces.filter((p) => p.kind === 'poem').length;
+  const essays = pieces.length - poems;
+  const what = essays ? `${plural(poems, 'poem')} and ${plural(essays, 'essay')}` : plural(poems, 'poem');
+  return `${what} in English, Marathi and Hindi`;
+}
 
 /** Three prints left lying on the first page. */
 const LOOSE_PRINTS = [albums[4]?.photos[1], albums[1]?.photos[1], albums[5]?.photos[0]].filter((p) => p !== undefined);

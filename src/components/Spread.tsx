@@ -6,7 +6,7 @@ import styles from './Spread.module.css';
 interface Props {
   /** Title block across the top. Its section's object floats beside it. */
   head?: ReactNode;
-  /** Route of the section this page belongs to, e.g. "/poetry". */
+  /** Route of the section this page belongs to, e.g. "/writing". */
   section?: string;
   left: ReactNode;
   right: ReactNode;

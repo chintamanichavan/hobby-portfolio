@@ -16,14 +16,18 @@ export interface Album {
   photos: Photo[];
 }
 
-export type PoemLanguage = 'english' | 'marathi' | 'hindi';
+export type Language = 'english' | 'marathi' | 'hindi';
 
-export interface Poem {
+/** A poem keeps its line breaks; an essay's lines run together into paragraphs. */
+export type PieceKind = 'poem' | 'essay';
+
+export interface Piece {
   id: string;
   title: string;
   body: string;
   date: string;
-  language: PoemLanguage;
+  language: Language;
+  kind: PieceKind;
   note?: string;
 }
 

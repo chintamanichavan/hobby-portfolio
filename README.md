@@ -1,6 +1,6 @@
 # hobby-portfolio
 
-A personal site for the non-engineering parts of life — photography, poetry, travel, cooking, guitar. Built as a single-page React app, deployed statically.
+A personal site for the non-engineering parts of life — photography, writing, travel, cooking, guitar. Built as a single-page React app, deployed statically.
 
 ## Stack
 
@@ -41,7 +41,7 @@ Images land in `public/media/desk/`. If an object's size changes, copy its new s
 
 ## Structure
 
-- `src/pages/` — one route per hobby (Photography, Poetry, Travel, Cooking, Guitar, Home)
+- `src/pages/` — one route per hobby (Photography, Writing, Travel, Cooking, Guitar, Home)
 - `src/data/` — content lives here, not in components (poems, recipes, travel logs, photo albums, the desk layout)
 - `src/components/` — shared UI (Cover, Spread, Thing, UsMap, Nav, VideoModal)
 - `blender/` — the script and fonts that render the objects

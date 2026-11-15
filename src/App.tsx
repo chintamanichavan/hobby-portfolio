@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter, Link, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Link, Navigate, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Cover from './components/Cover';
 import Nav from './components/Nav';
 import Thing from './components/Thing';
@@ -8,7 +8,7 @@ import { sections } from './data/sections';
 import Home from './pages/Home';
 import Photography from './pages/Photography';
 import Painting from './pages/Painting';
-import Poetry from './pages/Poetry';
+import Writing from './pages/Writing';
 import Travel from './pages/Travel';
 import Cooking from './pages/Cooking';
 import Guitar from './pages/Guitar';
@@ -35,7 +35,9 @@ function Journal() {
             <Route path="/" element={<Home />} />
             <Route path="/photography" element={<Photography />} />
             <Route path="/painting" element={<Painting />} />
-            <Route path="/poetry" element={<Poetry />} />
+            <Route path="/writing" element={<Writing />} />
+            {/* Poetry became part of Writing; keep old links working. */}
+            <Route path="/poetry" element={<Navigate to="/writing" replace />} />
             <Route path="/travel" element={<Travel />} />
             <Route path="/cooking" element={<Cooking />} />
             <Route path="/guitar" element={<Guitar />} />

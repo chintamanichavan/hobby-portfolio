@@ -1,12 +1,14 @@
-import type { Poem } from '../types';
+import type { Piece } from '../types';
 
-export const poems: Poem[] = [
+/** Poems and essays, together. A piece's kind decides how its body is set. */
+export const pieces: Piece[] = [
   // English
   {
     id: 'en-1',
     title: 'Morning Inventory',
     date: 'March 2024',
     language: 'english',
+    kind: 'poem',
     body: `One window, one cup,
 one rectangle of light
 measuring out the day.
@@ -23,6 +25,7 @@ Enough. More than enough.`,
     title: 'On Leaving',
     date: 'November 2023',
     language: 'english',
+    kind: 'poem',
     body: `You don't leave a place.
 You carry it differently —
 lighter some days,
@@ -38,6 +41,7 @@ you open every morning.`,
     title: 'Small Things',
     date: 'July 2023',
     language: 'english',
+    kind: 'poem',
     body: `The tea gone cold.
 A book left face-down, spine cracked,
 holding the page like a breath held.
@@ -53,6 +57,7 @@ before we know we're letting go.`,
     title: 'Rain Grammar',
     date: 'January 2024',
     language: 'english',
+    kind: 'poem',
     body: `Rain doesn't ask permission.
 It simply begins,
 conjugating the earth
@@ -69,6 +74,7 @@ everything you could not.`,
     title: 'सकाळची यादी',
     date: 'मार्च २०२४',
     language: 'marathi',
+    kind: 'poem',
     body: `एक खिडकी, एक कप,
 प्रकाशाचा एक चौकोन
 दिवस मोजत बसतो.
@@ -85,6 +91,7 @@ everything you could not.`,
     title: 'पाऊस',
     date: 'जुलै २०२३',
     language: 'marathi',
+    kind: 'poem',
     body: `पाऊस परवानगी मागत नाही.
 तो फक्त सुरू होतो,
 जमिनीशी संवाद साधतो
@@ -99,6 +106,7 @@ everything you could not.`,
     title: 'आठवण',
     date: 'नोव्हेंबर २०२३',
     language: 'marathi',
+    kind: 'poem',
     body: `तू एखादे ठिकाण सोडत नाहीस.
 ते वेगळ्या प्रकारे वाहून नेतोस —
 काही दिवस हलके,
@@ -116,6 +124,7 @@ everything you could not.`,
     title: 'सुबह की सूची',
     date: 'मार्च २०२४',
     language: 'hindi',
+    kind: 'poem',
     body: `एक खिड़की, एक कप,
 रोशनी का एक टुकड़ा
 दिन को नापता हुआ।
@@ -132,6 +141,7 @@ everything you could not.`,
     title: 'जाने पर',
     date: 'नवम्बर २०२३',
     language: 'hindi',
+    kind: 'poem',
     body: `तुम कोई जगह नहीं छोड़ते।
 उसे अलग तरह से उठाते हो —
 कुछ दिन हल्का,
@@ -147,6 +157,7 @@ everything you could not.`,
     title: 'बारिश की भाषा',
     date: 'जनवरी २०२४',
     language: 'hindi',
+    kind: 'poem',
     body: `बारिश इजाज़त नहीं माँगती।
 वो बस शुरू हो जाती है,
 ज़मीन से बात करती है
