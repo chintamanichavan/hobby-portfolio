@@ -8,14 +8,3 @@ services:
       # Only this machine can reach plain HTTP; the tailnet gets HTTPS via tailscale serve.
       - "127.0.0.1:5175:80"
 
-  # The same site under the name "Chin", to share on dates.
-  dating:
-    build:
-      context: .
-      args:
-        OWNER: Chin
-    image: hobby-portfolio-dating:0.1.0
-    container_name: hobby-portfolio-dating
-    restart: unless-stopped
-    ports:
-      - "127.0.0.1:5176:80"
